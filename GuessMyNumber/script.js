@@ -8,7 +8,7 @@ let highScoreText = document.querySelector(".highscore");
 let resultNumber = document.querySelector(".number");
 
 
-function restartGame(){
+function restartGame() {
     secretNumber = Math.trunc(Math.random() * 20) + 1;
     score = 20;
     resultNumber.textContent = "?"
@@ -16,8 +16,8 @@ function restartGame(){
     message.textContent = "Start guessing...";
     document.querySelector("body").style.backgroundColor = "#222"
     resultNumber.style.width = "15rem"
-    
-    
+
+
 
 
 }
@@ -25,7 +25,7 @@ function restartGame(){
 function checkFunc() {
     //Game Start
     const guessedNumber = Number(document.querySelector(".guess").value);
-    
+
     //Empty Input
     if (!guessedNumber) {
         message.textContent = "⛔ Please Make a Guess";
@@ -35,21 +35,20 @@ function checkFunc() {
     else if (guessedNumber === secretNumber) {
         message.textContent = "🟢 You Win";
 
-        if(Number(highScoreText.textContent) < score){
+        if (Number(highScoreText.textContent) < score) {
             highScoreText.textContent = score;
         }
-        
+
         resultNumber.textContent = secretNumber;
         document.querySelector("body").style.backgroundColor = "#60b347"
         resultNumber.style.width = "30rem"
 
 
     }
-
-    // High
-    else if (guessedNumber > secretNumber) {
+    //Wrong Number
+    else if (guessedNumber !== secretNumber) {
         if (score > 1) {
-            message.textContent = "📈 It's High";
+            message.textContent = guessedNumber > secretNumber ? "📈 It's High" : "📉 It's Low";
             score--
             scoreText.textContent = score;
         } else {
@@ -59,24 +58,8 @@ function checkFunc() {
 
 
         }
-    
-    } 
-    
-    //Low
-    else if (guessedNumber < secretNumber) {
-        if (score > 1) {
-            message.textContent = "📉 It's Low";
-            score--
-            scoreText.textContent = score;
-        } else {
-            message.textContent = "🔥 You Lose"
-            score--;
-            scoreText.textContent = score;
-
-
-        }
-
     }
+
 }
 
 document.querySelector(".check").addEventListener("click", checkFunc);
