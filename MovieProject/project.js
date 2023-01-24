@@ -3,6 +3,7 @@ const titleElement = document.querySelector("#title");
 const directorElement = document.querySelector("#director");
 const urlElement = document.querySelector("#url");
 const cardBody = document.querySelectorAll(".card-body")[1];
+const clearButton = document.querySelector("#clear-films");
 
 
 
@@ -22,6 +23,7 @@ function eventListeners() {
     });
 
     cardBody.addEventListener("click", deleteFilm);
+    clearButton.addEventListener("click", deleteAllFilms);
 }
 
 function addFilm(e) {
@@ -57,4 +59,9 @@ function deleteFilm(e) {
 
         ui.displayMessages("Silme işlemi Başarılı", "success");
     }
+}
+
+function deleteAllFilms() {
+    ui.deleteAllFilmsFromUI();
+    storage.deleteAllFilmsFromStorage();
 }

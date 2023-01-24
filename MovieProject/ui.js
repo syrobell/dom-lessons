@@ -76,3 +76,10 @@ UI.prototype.deleteFilmFromUI = function(element) {
 
     element.parentElement.parentElement.remove();
 }
+
+UI.prototype.deleteAllFilmsFromUI = () => {
+    const filmList = document.querySelector("#films")
+    while (filmList.firstElementChild !== null) {
+        filmList.firstElementChild.remove();
+    }
+}
