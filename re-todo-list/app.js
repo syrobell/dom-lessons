@@ -101,7 +101,7 @@ function deleteTodoFromUI(e) {
     }
 }
 
-function deleteTodoFromStorage(deleteTodo) {
+function deleteTodoFromStorage(deleteTodo) { //sorun var baklıacak
     let todos = checkTodoFromStorage();
 
     for (let i = 0; i < todos.length; i++) {
