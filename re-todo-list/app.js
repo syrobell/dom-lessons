@@ -59,9 +59,7 @@ function addToDoToUI(newTodo) {
 
     listItem.innerHTML += `
     
-    <li class="list-group-item d-flex justify-content-between">
-                            ${newTodo}
-                            <a href = "#" class ="delete-item">
+    <li class="list-group-item d-flex justify-content-between">${newTodo}<a href = "#" class ="delete-item">
                                 <i class = "fa fa-remove"></i>
                             </a>
 
@@ -96,19 +94,21 @@ function addToDoToStorage(newTodo) {
 
 function deleteTodoFromUI(e) {
     if (e.target.className === "fa fa-remove") {
+
         e.target.parentElement.parentElement.remove();
-        deleteTodoFromStorage(e.target.parentElement.parentElement.textContent);
+        deleteTodoFromStorage(e.target.parentElement.parentElement.textContent.trim());
+
     }
 }
 
-function deleteTodoFromStorage(deleteTodo) { //sorun var baklıacak
+function deleteTodoFromStorage(deleteTodo) {
     let todos = checkTodoFromStorage();
 
-    for (let i = 0; i < todos.length; i++) {
-        if (todos[i] === deleteTodo) {
-            todos[i].splice(i, 1);
+    todos.forEach(function(todo, index) {
+        if (todo === deleteTodo) {
+            todos.splice(index, 1);
         }
-    }
+    })
 
     localStorage.setItem("todos", JSON.stringify(todos));
 }
