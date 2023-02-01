@@ -1,7 +1,9 @@
 const form = document.querySelector("#todo-form");
 const input = document.querySelector("#todo");
 const listItem = document.querySelector(".list-group");
-const secondCardBody = document.querySelectorAll(".card-body")[1]
+const secondCardBody = document.querySelectorAll(".card-body")[1];
+const filter = document.querySelector("#filter");
+const clearBtn = document.querySelector("#clear-todos");
 
 eventListeners();
 
@@ -9,7 +11,28 @@ function eventListeners() {
     document.addEventListener("DOMContentLoaded", loadAllTodosToUI);
     form.addEventListener("submit", addToDo);
     secondCardBody.addEventListener("click", deleteTodoFromUI);
+    filter.addEventListener("keyup", filterTodo);
+    clearBtn.addEventListener("click", deleteAllTodos);
 
+}
+
+
+
+function filterTodo(e) {
+    const filterValue = e.target.value.toLowerCase();
+    const listItems = document.querySelectorAll(".list-group-item");
+
+
+    listItems.forEach(function(listItem) {
+        const value = listItem.textContent.toLowerCase();
+
+        if (value.indexOf(filterValue) === -1) {
+            listItem.setAttribute("style", "display: none !important");
+        } else {
+            listItem.setAttribute("style", "display: block");
+        }
+
+    })
 }
 
 function addToDo(e) {
@@ -111,4 +134,13 @@ function deleteTodoFromStorage(deleteTodo) {
     })
 
     localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function deleteAllTodos() {
+    if (confirm("Tümünü Silmek İstediğinize Emin misiniz?"))
+        while (listItem.firstElementChild != null) {
+            listItem.removeChild(listItem.firstElementChild);
+        }
+    localStorage.removeItem("todos");
+
 }
